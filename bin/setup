@@ -1,7 +1,8 @@
-# Add script to:
-# * Install dependencies
-# * Build/Compile
-# * Run Test Suit to validate
-#
-# After this is run, bin/parking_lot
-# should Just Work.
+#!/bin/sh
+
+# Set up Ruby dependencies
+bundle install
+
+#Run tests
+bundle exec rspec
+
