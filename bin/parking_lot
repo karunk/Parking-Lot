@@ -1,4 +1,6 @@
-# Add script to run program here.
-# Complete bin/setup so that after it is
-# run, bin/parking_lot can be used to launch
-# it.
+#!/usr/bin/env ruby
+$:.unshift(File.expand_path(File.join("..", "lib"), __dir__))
+
+require "main"
+
+Main.new($stdout).run
