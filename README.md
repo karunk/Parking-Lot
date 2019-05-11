@@ -9,25 +9,25 @@ The parking lot will be able to handle the following types of queries and respon
 
 
 #### Creating a parking lot with a particular capacity
-	`create_parking_lot 6`
+`create_parking_lot 6`
 
 #### Park a car with it's registration number and colour specified
-	`park KA-01-HH-1234 White`
+`park KA-01-HH-1234 White`
 
 #### Unpark a car which was parked at a particular slot number
-	`leave 4`
+`leave 4`
 
 #### Get the big picture status of the Parking Lot
-	`status`
+`status`
 
 #### List all car registration numbers where the car colour is as specified
-	`registration_numbers_for_cars_with_colour White`
+`registration_numbers_for_cars_with_colour White`
 
 #### List all the slot numbers where the parked car is of the colour specified
-	`slot_numbers_for_cars_with_colour White`
+`slot_numbers_for_cars_with_colour White`
  
 #### Get the slot number where a car with the specified registration number is parked
-	`slot_number_for_registration_number KA-01-HH-3141`	
+`slot_number_for_registration_number KA-01-HH-3141`	
 
 
 
