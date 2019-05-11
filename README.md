@@ -31,5 +31,31 @@ The parking lot will be able to handle the following types of queries and respon
 
 
 
+## Design
+The parking lot has **5 entities** which interact to solve the task of parking a car.
+
+#### 1. The Parking Lot Manager (PLM)
+* Translate human commands into actionables on the parking lot
+* Translate data from the parking lot to human readable output
+* Translate human readable data into something which is understood by the parking lot
+* Create a new parking lot
+* Only interact with the ticket, the parking lot and the car 
+
+#### 2. The Parking Lot
+* Park the car
+* Unpark the car
+* Query the cars parked
+
+#### 3. The Car
+* Has information about the car
+
+#### 4. The Ticket
+* Has information about the car and the assigned slot in the parking lot
+
+#### 5. The Slot
+* Park the car in the slot
+* Unpark the car from the slot
+
+
 
 
