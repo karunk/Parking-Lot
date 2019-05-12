@@ -3,4 +3,8 @@ $:.unshift(File.expand_path(File.join("..", "lib"), __dir__))
 
 require "main"
 
-Main.new($stdout).run
+if ARGV.empty?
+	Main.new($stdout).run
+else 
+	Main.new($stdout, ARGV[0]).run
+end
