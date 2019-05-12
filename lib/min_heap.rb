@@ -1,7 +1,7 @@
 class MinHeap
 
   def initialize
-    @elements = [nil] # initialize an empty array with nil at the 0 index (to make math easier)
+    @elements = [nil] 
     @element_position_map = Hash.new
   end
 
