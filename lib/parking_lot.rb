@@ -1,30 +1,63 @@
 class ParkingLot
 
-  def initialize
+  attr_reader :total_capacity
+
+  def initialize(capacity)
+    @total_capacity = capacity
   end
 
-  def park(car)
-    #will return a ticket
+  def park!(car)
+    raise StandardError.new("Sorry, parking lot is full") unless can_park?
+    raise StandardError.new("Sorry, a car with the same registration_number is already parked") if car_parked?(car)
+    ticket = Ticket.issue_ticket!(car)
+    return ticket
   end
 
-  def unpark(ticket)
+  def unpark!(ticket_id)
+    raise StandardError.new("Not found") unless Ticket.valid_ticket?(ticket_id)
+    ticket = Ticket.fetch_ticket!(ticket_id)
+    ticket.forfeit_ticket!
   end
 
   def status
+    parking_lot_status_data = []
+    Ticket.active_ticket_pool.each do |ticket_id, ticket|
+      ticket_data = []
+      ticket_data<<ticket.parked_slot.slot_number
+      ticket_data<<ticket.parked_slot.car.registration_number
+      ticket_data<<ticket.parked_slot.car.colour
+      parking_lot_status_data<<ticket_data
+    end
+    return parking_lot_status_data
   end
 
-  def get_slot_of_reg_no(registration_no)
+  def get_parked_slot_number!(car_registration_no)
+    return Ticket.get_issued_ticket_for_car!(car_registration_no)
   end
 
-  def get_reg_nos_for_colour(colour)
+  def get_registration_numbers_for_colour(colour)
+    return Ticket.active_tickets_for_car_colour(colour).map{ |ticket| ticket.parked_slot.car.registration_number }
   end
 
-  def get_slot_nos_for_colour(colour)
+  def get_slot_numbers_for_colour(colour)
+    return Ticket.active_tickets_for_car_colour(colour).map{ |ticket| ticket.parked_slot.slot_number }
   end
 
-private
-  
-  def create_slot
+  def current_capacity
+    return Ticket.tickets_currently_issued
+  end
+
+  def can_park?
+    return current_capacity < @total_capacity
+  end
+
+  def car_parked?(car)
+    Ticket.ticket_issued?(car)
+  end
+
+  def self.reset_parking_lot
+    Ticket.reset_active_ticket_pool
+    Slot.reset_slot_numbers_pool
   end
 
 end
