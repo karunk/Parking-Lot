@@ -18,6 +18,4 @@ module Commands
     SLOT_NUMBER_FOR_REGISTRATION_NUMBER
   ]
 
-  
-
 end
