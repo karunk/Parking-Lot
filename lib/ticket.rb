@@ -1,3 +1,5 @@
+require 'slot'
+
 class Ticket
 
   attr_accessor :parked_slot
