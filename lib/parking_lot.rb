@@ -1,3 +1,5 @@
+require 'ticket'
+
 class ParkingLot
 
   attr_reader :total_capacity
