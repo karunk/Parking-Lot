@@ -40,13 +40,13 @@ RSpec.describe Slot do
         slot = Slot.new
         assigned_slots<<slot
       end
-      assigned_slots[5].unpark
+      assigned_slots[5].unpark!
       expect(Slot.peek_next_slot_number).to eql(5)
       slot = Slot.new
       expect(slot.slot_number).to eql(5)
-      assigned_slots[77].unpark
-      assigned_slots[98].unpark
-      assigned_slots[34].unpark
+      assigned_slots[77].unpark!
+      assigned_slots[98].unpark!
+      assigned_slots[34].unpark!
       next_three_slot_numbers = [34, 77, 98]
       next_three_slot_numbers.each do |slot_number|
         slot = Slot.new
@@ -65,15 +65,15 @@ RSpec.describe Slot do
     it 'marked as not vacant after parking' do
       slot = Slot.new
       car = Car.new('KA-01-HH-1233433332', 'White')
-      slot.park(car)
+      slot.park!(car)
       expect(slot.vacant?).to be false
     end
 
     it 'marked as vacant after unparking' do
       slot = Slot.new
       car = Car.new('KA-01-HH-1233433332', 'White')
-      slot.park(car)
-      slot.unpark
+      slot.park!(car)
+      slot.unpark!
       expect(slot.vacant?).to be true
     end
 
