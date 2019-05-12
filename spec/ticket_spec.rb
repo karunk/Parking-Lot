@@ -20,7 +20,7 @@ RSpec.describe Ticket do
       Ticket.reset_active_ticket_pool
     end
 
-    it "A ticket is issued to a car" do
+    it "A ticket is issued to a car which is being parked" do
       ticket = Ticket.issue_ticket!(car)
       expect(ticket).to be
       expect(ticket).to be_an_instance_of(Ticket)
@@ -99,7 +99,7 @@ RSpec.describe Ticket do
       expect(ticket.ticket_id).to eql(Slot.peek_next_slot_number-1)
     end
 
-    it "Expect ticket Id to be nil when a ticket is forfeited" do
+    it "Ticket Id is Nil when a ticket is forfeited" do
       ticket = Ticket.issue_ticket!(car)
       ticket.forfeit_ticket!
       expect(ticket.ticket_id).to be nil
