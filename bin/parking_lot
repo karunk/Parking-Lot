@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 $:.unshift(File.expand_path(File.join("..", "lib"), __dir__))
 
-require "main"
+require "parking_lot_app"
 
 if ARGV.empty?
-	Main.new($stdout).run
+	ParkingLotApp.new($stdout).run
 else 
-	Main.new($stdout, ARGV[0]).run
+	ParkingLotApp.new($stdout, ARGV[0]).run
 end
