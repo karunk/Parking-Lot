@@ -1,6 +1,5 @@
 require 'car'
 require 'slot'
-require 'byebug'
 require 'faker'
 RSpec.describe Slot do
 

@@ -2,7 +2,6 @@ require 'ticket'
 require 'slot'
 require 'car'
 require 'faker'
-require 'byebug'
 RSpec.describe Ticket do
 
   def unique_registration_number

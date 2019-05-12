@@ -1,7 +1,6 @@
 require 'parking_lot'
 require 'commands'
 require 'command_parser'
-require 'byebug'
 
 class CommandProcessor
 
@@ -76,7 +75,7 @@ class CommandProcessor
       tmp+=row[0].to_s
       tmp+="           "
       tmp+=row[1].to_s
-      tmp+="    "
+      tmp+="      "
       tmp+=row[2].to_s
       tmp+="\n"
     end
