@@ -1,16 +1,16 @@
-require 'min_heap'
+require 'utilities/min_heap'
 
-RSpec.describe MinHeap, type: :class do
+RSpec.describe Utilities::MinHeap, type: :class do
 
   describe 'initialization tests' do
 
     it 'initializes with a null element at the first position' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       expect(min_heap.count).to eq(0)
     end
 
     it 'peek min is nil with no elements' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       expect(min_heap.peek_min).to eq(nil)
     end
 
@@ -19,14 +19,14 @@ RSpec.describe MinHeap, type: :class do
   describe 'min heap ordering on insert' do
 
     it 'preserves ordering of one element' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       min_heap << 1
       expect(min_heap.count).to eq(1)
       expect(min_heap.peek_min).to eq(1)
     end
 
     it 'preserves ordering of two elements in order' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       min_heap << 1
       min_heap << 2
       expect(min_heap.count).to eq(2)
@@ -34,7 +34,7 @@ RSpec.describe MinHeap, type: :class do
     end
 
     it 'preserves ordering of two elements reverse' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       min_heap << 2
       min_heap << 1
       expect(min_heap.count).to eq(2)
@@ -42,7 +42,7 @@ RSpec.describe MinHeap, type: :class do
     end
 
     it 'preserves ordering of three elements out of order' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       min_heap << 3
       min_heap << 1
       min_heap << 2
@@ -55,7 +55,7 @@ RSpec.describe MinHeap, type: :class do
   describe 'extract min testing' do
 
     it 'insert in asc - preserves ordering after extract min' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       for i in 1..10
         min_heap << i
       end
@@ -68,7 +68,7 @@ RSpec.describe MinHeap, type: :class do
     end
 
     it 'insert in desc - preserves ordering after extract min' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
       for i in 1..10
         min_heap << 11-i
       end
@@ -81,7 +81,7 @@ RSpec.describe MinHeap, type: :class do
     end
 
     it 'insert random - preserves ordering after extract min' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
 
       test_elements = [7,5,8,12,6]
 
@@ -114,7 +114,7 @@ RSpec.describe MinHeap, type: :class do
   describe 'delete element testing' do
 
     it 'deletes an element and preserves ordering' do
-      min_heap = MinHeap.new
+      min_heap = Utilities::MinHeap.new
 
       test_elements = [7,5,8,12,6]
 
