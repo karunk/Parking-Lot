@@ -1,10 +1,8 @@
-require 'min_heap'
-
 class Slot
 
   attr_accessor :slot_number, :car
 
-  @@slot_numbers_pool = MinHeap.new
+  @@slot_numbers_pool = Utilities::MinHeap.new
   @@max_slot_number_issued = nil
 
   def self.peek_next_slot_number
@@ -50,7 +48,7 @@ class Slot
   end
 
   def self.reset_slot_numbers_pool
-    @@slot_numbers_pool = MinHeap.new
+    @@slot_numbers_pool = Utilities::MinHeap.new
     @@max_slot_number_issued = nil
   end
 
