@@ -1,6 +1,15 @@
-require 'command_processor'
+require 'utilities/min_heap'
+require 'command/command'
+require 'models/car'
+require 'command/parser'
+require 'command/processor'
+require 'models/slot'
+require 'models/ticket'
+require 'models/parking_lot'
+require 'exceptions/command/invalid_input_error'
 
-class Main
+
+class ParkingLotApp
   def initialize(output, input_file=nil)
     @output = output
     @input_file = input_file
@@ -19,7 +28,7 @@ class Main
   attr_reader :output, :input_file
 
   def command_processor
-    @command_processor ||= CommandProcessor.new
+    @command_processor ||= Command::Processor.new
   end
 
   def verify_input_file
