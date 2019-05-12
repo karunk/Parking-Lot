@@ -8,7 +8,7 @@ class Slot
 	@@max_slot_number_issued = nil
 
 	def self.peek_next_slot_number
-		return @@slot_numbers_pool.peek_min
+    return @@slot_numbers_pool.peek_min
 	end
 
   def initialize
