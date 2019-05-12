@@ -5,58 +5,79 @@ class CommandParser
   include Commands
 
   def initialize(command_name)
+    raise Command::InvalidInputError unless VALID_PARKING_LOT_COMMANDS.include?(command_name)
     @command_name = command_name
   end
 
-  def validate_and_parse!(command_args)
-    validate_command_name!
-    validate_and_parse_command_args!(command_args)
+  def validate_and_parse!(args)
+    validate_command_args!(args)
+    process_command_args(args)
   end
 
-  def validate_command_name!
-    raise StandardError.new("Invalid Command. Please try again.") unless VALID_PARKING_LOT_COMMANDS.include?(@command_name)
-  end
+  private 
 
-  def validate_and_parse_command_args!(command_args)
+  def validate_command_args!(args)
     case @command_name
-    when CREATE_PARKING_LOT
-      unless command_args.length == 1 and command_args[0].to_i.to_s == command_args[0] 
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
-      command_args[0] = command_args[0].to_i
+    when SETUP_LOT
+      raise Command::InvalidInputError unless setup_lot_args_valid?(args)
     when PARK
-      unless command_args.length == 2
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
-      command_args[0] = Car.new(command_args[0], command_args[1])
-
-    when LEAVE
-      unless command_args.length == 1
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
-      command_args[0] = command_args[0].to_i
-
-    when STATUS
-      unless command_args.length == 0
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
-
-    when REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR
-      unless command_args.length == 1
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
-
-    when SLOT_NUMBERS_FOR_CARS_WITH_COLOUR
-      unless command_args.length == 1
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
-
-    when SLOT_NUMBER_FOR_REGISTRATION_NUMBER
-      unless command_args.length == 1
-        raise StandardError.new("Invalid parameters passed or missing parameters found")
-      end
+      raise Command::InvalidInputError unless park_args_valid?(args)
+    when UNPARK
+      raise Command::InvalidInputError unless unpark_args_valid?(args)
+    when GET_COLOUR_REG_NOS
+      raise Command::InvalidInputError unless reg_nos_for_color_args_valid?(args)
+    when GET_COLOUR_SLOT_NOS
+      raise Command::InvalidInputError unless get_colot_slot_nos_args_valid?(args)
+    when GET_SLOT_NO
+      raise Command::InvalidInputError unless get_slot_no_args_valid?(args)
     end
+  end
 
+  def process_command_args(args)
+    case @command_name
+    when SETUP_LOT
+      process_create_parking_lot_args(args)
+    when PARK
+      process_park_args(args)
+    when UNPARK
+      process_leave_args(args)
+    end
+  end
+
+  def setup_lot_args_valid?(args)
+    args.length.eql? 1 and args[0].to_i.to_s.eql? args[0]
+  end
+
+  def unpark_args_valid?(args)
+    args.length.eql? 1
+  end
+
+  def park_args_valid?(args)
+    args.length.eql? 2
+  end
+
+  def get_slot_no_args_valid?(args)
+    args.length.eql? 1
+  end
+
+  def get_colot_slot_nos_args_valid?(args)
+    args.length.eql? 1
+  end
+
+  def reg_nos_for_color_args_valid?(args)
+    args.length.eql? 1
+  end
+
+  def process_create_parking_lot_args(args)
+    args[0] = args[0].to_i
+  end
+
+  def process_leave_args(args)
+    args[0] = args[0].to_i
+  end
+
+  def process_park_args(args)
+    args[0] = Car.new(args[0], args[1])
   end
   
 end

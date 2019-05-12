@@ -1,6 +1,7 @@
 require 'parking_lot'
 require 'commands'
 require 'command_parser'
+require 'exceptions/command/invalid_input_error'
 
 class CommandProcessor
 
@@ -22,8 +23,8 @@ class CommandProcessor
     messg = nil
 
     case command_name
-    when CREATE_PARKING_LOT
-      CommandParser.new(CREATE_PARKING_LOT).validate_and_parse!(command_args)
+    when SETUP_LOT
+      CommandParser.new(SETUP_LOT).validate_and_parse!(command_args)
       parking_lot_capacity = command_args[0]
       @parking_lot = ParkingLot.new(parking_lot_capacity)
       messg = "Created a parking lot with #{@parking_lot.total_capacity} slots"
@@ -33,8 +34,8 @@ class CommandProcessor
       ticket = @parking_lot.park!(car)
       messg = "Allocated slot number: #{ticket.parked_slot.slot_number}"
 
-    when LEAVE
-      CommandParser.new(LEAVE).validate_and_parse!(command_args)
+    when UNPARK
+      CommandParser.new(UNPARK).validate_and_parse!(command_args)
       ticket_id = command_args[0]
       @parking_lot.unpark!(ticket_id)
       messg = "Slot number #{ticket_id} is free"
@@ -44,26 +45,26 @@ class CommandProcessor
       status_data = @parking_lot.status
       messg = status_table_string(status_data)
 
-    when REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR
-      CommandParser.new(REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR).validate_and_parse!(command_args)
+    when GET_COLOUR_REG_NOS
+      CommandParser.new(GET_COLOUR_REG_NOS).validate_and_parse!(command_args)
       colour = command_args[0]
       registration_numbers = @parking_lot.get_registration_numbers_for_colour(colour)
       messg = registration_numbers.join(', ')
 
-    when SLOT_NUMBERS_FOR_CARS_WITH_COLOUR
-      CommandParser.new(SLOT_NUMBERS_FOR_CARS_WITH_COLOUR).validate_and_parse!(command_args)
+    when GET_COLOUR_SLOT_NOS
+      CommandParser.new(GET_COLOUR_SLOT_NOS).validate_and_parse!(command_args)
       colour = command_args[0]
       slot_numbers = @parking_lot.get_slot_numbers_for_colour(colour)
       messg = slot_numbers.join(', ')
 
-    when SLOT_NUMBER_FOR_REGISTRATION_NUMBER
-      CommandParser.new(SLOT_NUMBER_FOR_REGISTRATION_NUMBER).validate_and_parse!(command_args)
+    when GET_SLOT_NO
+      CommandParser.new(GET_SLOT_NO).validate_and_parse!(command_args)
       car_registration_number = command_args[0]
       slot_number = @parking_lot.get_parked_slot_number!(car_registration_number)
       messg = slot_number.to_s
+    else
+      raise Command::InvalidInputError unless VALID_PARKING_LOT_COMMANDS.include?(command_name)
     end
-
-    messg == "Invalid Command. Please try again." if messg.nil?
     return messg
   end
 

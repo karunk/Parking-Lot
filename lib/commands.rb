@@ -1,21 +1,21 @@
 module Commands
 
   PARK = 'park'
-  CREATE_PARKING_LOT = 'create_parking_lot'
-  LEAVE = 'leave'
+  UNPARK = 'leave'
+  SETUP_LOT = 'create_parking_lot'
   STATUS = 'status'
-  REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR = 'registration_numbers_for_cars_with_colour'
-  SLOT_NUMBERS_FOR_CARS_WITH_COLOUR = 'slot_numbers_for_cars_with_colour'
-  SLOT_NUMBER_FOR_REGISTRATION_NUMBER = 'slot_number_for_registration_number'
+  GET_COLOUR_REG_NOS = 'registration_numbers_for_cars_with_colour'
+  GET_COLOUR_SLOT_NOS = 'slot_numbers_for_cars_with_colour'
+  GET_SLOT_NO = 'slot_number_for_registration_number'
 
   VALID_PARKING_LOT_COMMANDS = [
     PARK,
-    CREATE_PARKING_LOT,
-    LEAVE,
+    SETUP_LOT,
+    UNPARK,
     STATUS,
-    REGISTRATION_NUMBERS_FOR_CARS_WITH_COLOUR,
-    SLOT_NUMBERS_FOR_CARS_WITH_COLOUR,
-    SLOT_NUMBER_FOR_REGISTRATION_NUMBER
+    GET_COLOUR_REG_NOS,
+    GET_COLOUR_SLOT_NOS,
+    GET_SLOT_NO
   ]
 
 end
