@@ -1,4 +1,7 @@
-require "parking_lot"
+require 'parking_lot_commands'
+require 'parking_lot_command_processor'
+require 'parking_lot'
+require 'byebug'
 
 class Main
   def initialize(output, input_file=nil)
@@ -7,10 +10,10 @@ class Main
   end
 
   def run
-    if input_file.nil?
-      process_cli
-    else
-      process_input_file
+    begin
+      input_file.nil? ? process_cli : process_input_file
+    rescue StandardError => e
+      output.puts("#{e.class}: #{e.message}")
     end
   end
 
@@ -22,12 +25,31 @@ class Main
     @parking_lot ||= ParkingLot.new
   end
 
+  def verify_input_file
+    raise ArgumentError.new("Invalid input file #{input_file}") unless File.file?(input_file)
+  end
+
   def process_input_file
-    output.puts(parking_lot.greeting)
+    verify_input_file
+    File.foreach(input_file) {|input_command| 
+      begin
+        output.puts(parking_lot.process_command(input_command))
+      rescue StandardError => e
+        output.puts("#{e.class}: #{e.message}")
+      end
+    }
   end
 
   def process_cli
-    output.puts(parking_lot.greeting)
+    loop do 
+      input_command = gets.chomp
+      begin
+        break if input_command.eql?("exit") 
+        output.puts(parking_lot.process_command(input_command))
+      rescue StandardError => e
+        output.puts("#{e.class}: #{e.message}")
+      end
+    end
   end
 
 end
