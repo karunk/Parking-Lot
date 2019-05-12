@@ -1,7 +1,4 @@
-require 'parking_lot_commands'
-require 'parking_lot_command_processor'
-require 'parking_lot'
-require 'byebug'
+require 'command_processor'
 
 class Main
   def initialize(output, input_file=nil)
@@ -13,7 +10,7 @@ class Main
     begin
       input_file.nil? ? process_cli : process_input_file
     rescue StandardError => e
-      output.puts("#{e.class}: #{e.message}")
+      output.puts("#{e.message}")
     end
   end
 
@@ -21,8 +18,8 @@ class Main
 
   attr_reader :output, :input_file
 
-  def parking_lot
-    @parking_lot ||= ParkingLot.new
+  def command_processor
+    @command_processor ||= CommandProcessor.new
   end
 
   def verify_input_file
@@ -33,9 +30,9 @@ class Main
     verify_input_file
     File.foreach(input_file) {|input_command| 
       begin
-        output.puts(parking_lot.process_command(input_command))
+        output.puts(command_processor.process(input_command))
       rescue StandardError => e
-        output.puts("#{e.class}: #{e.message}")
+        output.puts("#{e.message}")
       end
     }
   end
@@ -45,9 +42,9 @@ class Main
       input_command = gets.chomp
       begin
         break if input_command.eql?("exit") 
-        output.puts(parking_lot.process_command(input_command))
+        output.puts(command_processor.process(input_command))
       rescue StandardError => e
-        output.puts("#{e.class}: #{e.message}")
+        output.puts("#{e.message}")
       end
     end
   end
