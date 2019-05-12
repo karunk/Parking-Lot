@@ -1,3 +1,4 @@
+require 'car'
 require 'slot'
 require 'byebug'
 require 'faker'
@@ -54,7 +55,32 @@ RSpec.describe Slot do
       expect(Slot.peek_next_slot_number).to eql(151)
     end
 
+  end
 
+  describe 'parking a car' do
+    before(:each) do 
+      Slot.reset_slot_numbers_pool
+    end
+
+    it 'marked as not vacant after parking' do
+      slot = Slot.new
+      car = Car.new('KA-01-HH-1233433332', 'White')
+      slot.park(car)
+      expect(slot.vacant?).to be false
+    end
+
+    it 'marked as vacant after unparking' do
+      slot = Slot.new
+      car = Car.new('KA-01-HH-1233433332', 'White')
+      slot.park(car)
+      slot.unpark
+      expect(slot.vacant?).to be true
+    end
+
+    it 'is initially vacant' do
+      slot = Slot.new
+      expect(slot.vacant?).to be true
+    end
   end
 
 end
