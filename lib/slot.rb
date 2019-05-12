@@ -7,6 +7,10 @@ class Slot
 	@@slot_numbers_pool = MinHeap.new
 	@@max_slot_number_issued = nil
 
+	def self.peek_next_slot_number
+		return @@slot_numbers_pool.peek_min
+	end
+
   def initialize
   	self.car_id = nil
   	issue_slot_number
@@ -38,12 +42,16 @@ class Slot
 		self.slot_number = nil
 	end
 
-
   def replenish_slot_number_pool
   	@@max_slot_number_issued = 0 if @@max_slot_number_issued.nil?
     for i in @@max_slot_number_issued+1..@@max_slot_number_issued+100
       @@slot_numbers_pool<<i
     end
+  end
+
+  def self.reset_slot_numbers_pool
+  	@@slot_numbers_pool = MinHeap.new
+  	@@max_slot_number_issued = nil
   end
 
 end
