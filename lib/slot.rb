@@ -2,7 +2,7 @@ require 'min_heap'
 
 class Slot
 
-	attr_accessor :slot_number, :car_id
+	attr_accessor :slot_number, :car
 
 	@@slot_numbers_pool = MinHeap.new
 	@@max_slot_number_issued = nil
@@ -12,21 +12,21 @@ class Slot
 	end
 
   def initialize
-  	self.car_id = nil
+  	self.car = nil
   	issue_slot_number
   end
 
-  def park(car)
-  	self.car_id = car
+  def park!(car)
+  	self.car = car
   end
 
-  def unpark
-  	self.car_id = nil
+  def unpark!
+  	self.car = nil
   	return_slot_number_to_pool
   end
 
   def vacant?
-  	return self.car_id.nil?
+  	return self.car.nil?
   end
 
   private
