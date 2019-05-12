@@ -1,4 +1,4 @@
-module Commands
+module Command
 
   PARK = 'park'
   UNPARK = 'leave'
