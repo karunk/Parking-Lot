@@ -30,10 +30,6 @@ class MinHeap
     return min_element
   end
 
-  def contains_element(element)
-    return @element_position_map.has_key?(element)
-  end
-
   def delete_element(element)
     element_position = @element_position_map[element]
     unless element_position.nil?
@@ -45,19 +41,7 @@ class MinHeap
     end
   end
 
-  def print_heap
-    puts 'printing min heap'
-    @elements.each do |element|
-      if element.nil?
-        puts 'nil'
-      else
-        puts element
-      end
-    end
-  end
-
   private 
-
 
   def sift_up(index)
     parent_index = (index / 2)
