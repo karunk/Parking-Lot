@@ -1,6 +1,6 @@
-require 'ticket'
-require 'slot'
-require 'car'
+require 'models/ticket'
+require 'models/slot'
+require 'models/car'
 require 'faker'
 RSpec.describe Ticket do
 

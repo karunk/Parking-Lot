@@ -1,4 +1,4 @@
-require 'car'
+require 'models/car'
 require 'faker'
 
 RSpec.describe Car do

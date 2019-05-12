@@ -1,5 +1,5 @@
-require 'car'
-require 'slot'
+require 'models/car'
+require 'models/slot'
 require 'faker'
 RSpec.describe Slot do
 

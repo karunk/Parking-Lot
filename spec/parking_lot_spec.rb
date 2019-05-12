@@ -1,4 +1,4 @@
-require 'parking_lot'
+require 'models/parking_lot'
 
 RSpec.describe ParkingLot do
 
