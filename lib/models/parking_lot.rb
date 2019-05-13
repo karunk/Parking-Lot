@@ -7,14 +7,14 @@ class ParkingLot
   end
 
   def park!(car)
-    raise StandardError.new("Sorry, parking lot is full") unless can_park?
-    raise StandardError.new("Sorry, a car with the same registration_number is already parked") if car_parked?(car)
+    raise MaxCapacityError unless can_park?
+    raise DuplicateParkingError if car_parked?(car)
     ticket = Ticket.issue_ticket!(car)
     return ticket
   end
 
   def unpark!(ticket_id)
-    raise StandardError.new("Not found") unless Ticket.valid_ticket?(ticket_id)
+    raise NotFoundError unless Ticket.valid_ticket?(ticket_id)
     ticket = Ticket.fetch_ticket!(ticket_id)
     ticket.forfeit_ticket!
   end
