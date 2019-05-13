@@ -13,7 +13,7 @@ RSpec.describe ParkingLot do
 
   describe "Parking Lot Capacity" do
     before(:each) do 
-      ParkingLot.reset_parking_lot
+      ParkingLot.reset_parking_lots
     end
 
     it "Parking Lot has a defined maximum capacity" do
@@ -49,7 +49,7 @@ RSpec.describe ParkingLot do
 
   describe "Parking Lot Status" do
     before(:each) do 
-      ParkingLot.reset_parking_lot
+      ParkingLot.reset_parking_lots
     end
 
     it "Gives information about all the cars parked in the parking lot" do 
@@ -68,7 +68,7 @@ RSpec.describe ParkingLot do
 
   describe "Parking Lot Queries" do
     before(:each) do 
-      ParkingLot.reset_parking_lot
+      ParkingLot.reset_parking_lots
     end
 
     it "Reports the parked slot number when a car is actually parked" do
@@ -117,7 +117,7 @@ RSpec.describe ParkingLot do
 
   describe "Parking in the Parking Lot" do
     before(:each) do 
-      ParkingLot.reset_parking_lot
+      ParkingLot.reset_parking_lots
     end
 
     it "Raises an exception when an already parked car is parked again" do
@@ -138,7 +138,7 @@ RSpec.describe ParkingLot do
 
   describe "Unparking in the Parking Lot" do
     before(:each) do 
-      ParkingLot.reset_parking_lot
+      ParkingLot.reset_parking_lots
     end
 
     it "Raises an exception when an already unparked car is unparked again" do

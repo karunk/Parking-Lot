@@ -55,7 +55,7 @@ class ParkingLot
     Ticket.ticket_issued?(car)
   end
 
-  def self.reset_parking_lot
+  def self.reset_parking_lots
     Ticket.reset_active_ticket_pool
     Slot.reset_slot_numbers_pool
   end
