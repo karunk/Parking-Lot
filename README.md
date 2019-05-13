@@ -1,4 +1,5 @@
-# The Parking Lot
+# The Parking Lot 
+### by Karun
 
 Implementing the parking lot Ruby. Please see PDF for specifications.
 
