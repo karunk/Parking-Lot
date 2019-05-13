@@ -1,6 +1,3 @@
-require 'models/car'
-require 'models/slot'
-require 'faker'
 RSpec.describe Slot do
 
   describe 'slot number assignment' do

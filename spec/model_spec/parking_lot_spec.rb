@@ -1,5 +1,3 @@
-require 'models/parking_lot'
-
 RSpec.describe ParkingLot do
 
   def unique_registration_number
@@ -44,7 +42,7 @@ RSpec.describe ParkingLot do
         car = Car.new(unique_registration_number, pick_colour)
         parking_lot.park!(car)
       end
-      expect{ parking_lot.park!(car) }.to raise_error(StandardError, "Sorry, parking lot is full")
+      expect{ parking_lot.park!(car) }.to raise_error(MaxCapacityError, "Sorry, parking lot is full")
     end
 
   end
@@ -84,7 +82,7 @@ RSpec.describe ParkingLot do
 
     it "Raises an exception when no such car with give registration number is parked in the lot" do
       parking_lot = ParkingLot.new(parking_lot_capacity)
-      expect{ parking_lot.get_parked_slot_number!(car.registration_number) }.to raise_error(StandardError, "Not found")
+      expect{ parking_lot.get_parked_slot_number!(car.registration_number) }.to raise_error(NotFoundError)
     end
 
     it "Reports all the registration numbers of all cars of a particular colour" do
@@ -125,7 +123,7 @@ RSpec.describe ParkingLot do
     it "Raises an exception when an already parked car is parked again" do
       parking_lot = ParkingLot.new(parking_lot_capacity)
       ticket_id = parking_lot.park!(car).ticket_id
-      expect{ parking_lot.park!(car) }.to raise_error(StandardError, "Sorry, a car with the same registration_number is already parked")
+      expect{ parking_lot.park!(car) }.to raise_error(DuplicateParkingError)
     end
 
     it "Parks the car and reflects it in all the Parking Lot queries" do
@@ -147,14 +145,14 @@ RSpec.describe ParkingLot do
       parking_lot = ParkingLot.new(parking_lot_capacity)
       ticket_id = parking_lot.park!(car).ticket_id
       parking_lot.unpark!(ticket_id)
-      expect{ parking_lot.unpark!(ticket_id) }.to raise_error(StandardError, "Not found")
+      expect{ parking_lot.unpark!(ticket_id) }.to raise_error(NotFoundError)
     end
 
     it "Unparks the car and reflects it in all the Parking Lot queries" do
       parking_lot = ParkingLot.new(parking_lot_capacity)
       ticket_id = parking_lot.park!(car).ticket_id
       parking_lot.unpark!(ticket_id)
-      expect{parking_lot.get_parked_slot_number!(car.registration_number)}.to raise_error(StandardError, "Not found")
+      expect{parking_lot.get_parked_slot_number!(car.registration_number)}.to raise_error(NotFoundError)
       expect(parking_lot.get_registration_numbers_for_colour(car.colour)).not_to include(car.registration_number)
       expect(parking_lot.get_slot_numbers_for_colour(car.colour)).not_to include(ticket_id)
     end

@@ -1,7 +1,3 @@
-require 'models/ticket'
-require 'models/slot'
-require 'models/car'
-require 'faker'
 RSpec.describe Ticket do
 
   def unique_registration_number

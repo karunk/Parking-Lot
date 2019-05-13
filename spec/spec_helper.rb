@@ -1,5 +1,15 @@
 require 'simplecov'
 require 'simplecov-console'
+require 'utilities/min_heap'
+require 'models/car'
+require 'models/slot'
+require 'faker'
+require 'models/parking_lot'
+require 'models/ticket'
+require 'exceptions/max_capacity_error'
+require 'exceptions/duplicate_parking_error'
+require 'exceptions/not_found_error'
+
 
 SimpleCov.formatter = SimpleCov::Formatter::Console
 SimpleCov.start

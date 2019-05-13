@@ -1,6 +1,3 @@
-require 'models/car'
-require 'faker'
-
 RSpec.describe Car do
 
   def unique_registration_number
