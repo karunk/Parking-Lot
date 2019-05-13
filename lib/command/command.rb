@@ -7,6 +7,7 @@ module Command
   GET_COLOUR_REG_NOS = 'registration_numbers_for_cars_with_colour'
   GET_COLOUR_SLOT_NOS = 'slot_numbers_for_cars_with_colour'
   GET_SLOT_NO = 'slot_number_for_registration_number'
+  EXIT = 'exit'
 
   VALID_PARKING_LOT_COMMANDS = [
     PARK,
@@ -15,7 +16,8 @@ module Command
     STATUS,
     GET_COLOUR_REG_NOS,
     GET_COLOUR_SLOT_NOS,
-    GET_SLOT_NO
+    GET_SLOT_NO,
+    EXIT
   ]
 
 end
