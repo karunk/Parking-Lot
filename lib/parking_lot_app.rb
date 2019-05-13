@@ -12,7 +12,6 @@ require 'command/processor'
 require 'models/slot'
 require 'models/ticket'
 require 'models/parking_lot'
-require 'byebug'
 
 class ParkingLotApp
   def initialize(output, input_file=nil)

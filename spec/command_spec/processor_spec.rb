@@ -1,4 +1,3 @@
-require 'byebug'
 RSpec.describe Command::Processor do
 
   let(:command_processor) { Command::Processor.new }
