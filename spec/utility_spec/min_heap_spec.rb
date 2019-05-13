@@ -131,7 +131,7 @@ RSpec.describe Utilities::MinHeap, type: :class do
       expect(deleted_element).to eq(12)
       expect(min_heap.count).to eq(4)
 
-      elements_after_deletion = [5,6,8,7] # remove '12'
+      elements_after_deletion = [5,6,8,7]
 
       min_heap.elements.each_with_index do |element, index|
         expect(element).to eq(elements_after_deletion[index])
