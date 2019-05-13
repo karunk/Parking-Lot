@@ -2,7 +2,7 @@ module Command
 
   class InvalidInputError < StandardError
     
-    def initialize(msg='Invalid Command. Please try again.')
+    def initialize(msg='Invalid Command. Please try again')
       super
     end
 
