@@ -5,11 +5,16 @@ module Command
       @parking_lot = nil
       @command_name = nil
       @parsed_args = nil
+      ParkingLot.reset_parking_lots
     end
 
     def process!(raw_command)
-      parse_command!(raw_command)
-      output = execute_command!
+      begin
+        parse_command!(raw_command)
+        output = execute_command!
+      rescue StandardError => e
+        output = e.message
+      end
       return output
     end
 
