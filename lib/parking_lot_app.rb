@@ -3,6 +3,8 @@ require 'exceptions/command/invalid_input_error'
 require 'exceptions/max_capacity_error'
 require 'exceptions/duplicate_parking_error'
 require 'exceptions/not_found_error'
+require 'exceptions/parking_lot_not_found_error'
+require 'exceptions/initialization_error'
 require 'models/car'
 require 'command/command'
 require 'command/parser'
@@ -10,7 +12,7 @@ require 'command/processor'
 require 'models/slot'
 require 'models/ticket'
 require 'models/parking_lot'
-
+require 'byebug'
 
 class ParkingLotApp
   def initialize(output, input_file=nil)
@@ -42,7 +44,7 @@ class ParkingLotApp
     verify_input_file
     File.foreach(input_file) {|input_command| 
       begin
-        output.puts(command_processor.process(input_command))
+        output.puts(command_processor.process!(input_command))
       rescue StandardError => e
         output.puts("#{e.message}")
       end
@@ -54,7 +56,7 @@ class ParkingLotApp
       input_command = gets.chomp
       begin
         break if input_command.eql?(Command::EXIT) 
-        output.puts(command_processor.process(input_command))
+        output.puts(command_processor.process!(input_command))
       rescue StandardError => e
         output.puts("#{e.message}")
       end

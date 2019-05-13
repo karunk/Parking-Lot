@@ -9,7 +9,8 @@ require 'models/ticket'
 require 'exceptions/max_capacity_error'
 require 'exceptions/duplicate_parking_error'
 require 'exceptions/not_found_error'
-
+require 'exceptions/parking_lot_not_found_error'
+require 'exceptions/initialization_error'
 
 SimpleCov.formatter = SimpleCov::Formatter::Console
 SimpleCov.start
