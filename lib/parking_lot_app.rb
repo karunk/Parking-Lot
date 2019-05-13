@@ -21,11 +21,7 @@ class ParkingLotApp
   end
 
   def run
-    begin
-      input_file.nil? ? process_cli : process_input_file
-    rescue StandardError => e
-      output.puts("#{e.message}")
-    end
+    input_file.nil? ? process_cli : process_input_file
   end
 
   private
@@ -43,23 +39,15 @@ class ParkingLotApp
   def process_input_file
     verify_input_file
     File.foreach(input_file) {|input_command| 
-      begin
-        output.puts(command_processor.process!(input_command))
-      rescue StandardError => e
-        output.puts("#{e.message}")
-      end
+      output.puts(command_processor.process!(input_command))
     }
   end
 
   def process_cli
     loop do 
       input_command = gets.chomp
-      begin
-        break if input_command.eql?(Command::EXIT) 
-        output.puts(command_processor.process!(input_command))
-      rescue StandardError => e
-        output.puts("#{e.message}")
-      end
+      break if input_command.eql?(Command::EXIT) 
+      output.puts(command_processor.process!(input_command))
     end
   end
 
