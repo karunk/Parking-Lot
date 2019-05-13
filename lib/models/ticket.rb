@@ -62,7 +62,7 @@ class Ticket
   end
 
   def self.get_issued_ticket_for_car!(car_registration_number)
-    raise StandardError.new('Not found') unless @@ticket_car_map.key?(car_registration_number)
+    raise NotFoundError unless @@ticket_car_map.key?(car_registration_number)
     return @@ticket_car_map[car_registration_number]
   end
 
