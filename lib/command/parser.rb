@@ -1,3 +1,5 @@
+require 'exceptions/command/invalid_input_error'
+
 module Command
   class Parser
 
