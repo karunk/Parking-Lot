@@ -1,60 +1,50 @@
 # The Parking Lot
 
-Implementing the parking lot in Ruby in the most beautiful object oriented way possible.
-
-## Functionality Supported
-
-The parking lot will be able to handle the following types of queries and respond in a fashion, as demonstrated by the following exhaustive examples : -
+Implementing the parking lot Ruby. Please see PDF for specifications.
 
 
+### Installing
+Go to the root directory of the project and run the following commands : 
 
-#### 1. Creating a parking lot with a particular capacity
-`create_parking_lot 6`
+To install gem dependencies and run the entire testing suite. This new testing suite is an exhaustive test of the parking lot system, having 100% test coverage as verified by simplecov.
 
-#### 2. Park a car with it's registration number and colour specified
-`park KA-01-HH-1234 White`
+```
+bin/setup
+```
 
-#### 3. Unpark a car which was parked at a particular slot number
-`leave 4`
+## Running the Functional tests
 
-#### 4. Get the big picture status of the Parking Lot
-`status`
+To run against the pre-written functional test
 
-#### 5. List all car registration numbers where the car colour is as specified
-`registration_numbers_for_cars_with_colour White`
+```
+bin/run_functional_tests
+```
 
-#### 6. List all the slot numbers where the parked car is of the colour specified
-`slot_numbers_for_cars_with_colour White`
- 
-#### 7. Get the slot number where a car with the specified registration number is parked
-`slot_number_for_registration_number KA-01-HH-3141`	
+## Open CLI
+
+Parking Lot supports a CLI interface to manually interact with the program. Run the following to open a CLI interface.
+
+```
+bin/parking_lot
+```
+
+## Use via Input Files
+
+Parking Lot also supports usage via an input file. It will parse the fill and output the result on console. Usage : 
+
+```
+bin/parking_lot <input_file_location>
+```
+
+## Built With
+
+* [Rspec](https://github.com/rspec/rspec-rails) - Testing Framework
+* [simplecov](https://github.com/colszowka/simplecov) - Test Coverage Analysis
+* [faker](https://rometools.github.io/rome/) - Gem to aid in writing tests
 
 
 
-## Design
-The parking lot has **5 entities** which interact to solve the task of parking a car.
 
-#### 1. The Parking Lot Manager (PLM)
-* Translate human commands into actionables on the parking lot
-* Translate data from the parking lot to human readable output
-* Translate human readable data into something which is understood by the parking lot
-* Create a new parking lot
-* Only interact with the ticket, the parking lot and the car 
-
-#### 2. The Parking Lot
-* Park the car
-* Unpark the car
-* Query the cars parked
-
-#### 3. The Car
-* Has information about the car
-
-#### 4. The Ticket
-* Has information about the car and the assigned slot in the parking lot
-
-#### 5. The Slot
-* Park the car in the slot
-* Unpark the car from the slot
 
 
 
