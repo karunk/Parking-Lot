@@ -1,12 +1,15 @@
 require 'utilities/min_heap'
-require 'command/command'
+require 'exceptions/command/invalid_input_error'
+require 'exceptions/max_capacity_error'
+require 'exceptions/duplicate_parking_error'
+require 'exceptions/not_found_error'
 require 'models/car'
+require 'command/command'
 require 'command/parser'
 require 'command/processor'
 require 'models/slot'
 require 'models/ticket'
 require 'models/parking_lot'
-require 'exceptions/command/invalid_input_error'
 
 
 class ParkingLotApp
@@ -50,7 +53,7 @@ class ParkingLotApp
     loop do 
       input_command = gets.chomp
       begin
-        break if input_command.eql?("exit") 
+        break if input_command.eql?(Command::EXIT) 
         output.puts(command_processor.process(input_command))
       rescue StandardError => e
         output.puts("#{e.message}")
