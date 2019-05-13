@@ -9,6 +9,7 @@ module Command
     def validate_and_parse!(args)
       validate_command_args!(args)
       process_command_args(args)
+      return args
     end
 
     private 

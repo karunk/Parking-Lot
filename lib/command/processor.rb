@@ -3,66 +3,86 @@ module Command
 
     def initialize
       @parking_lot = nil
+      @command_name = nil
+      @parsed_args = nil
+    end
+
+    def process!(raw_command)
+      parse_command!(raw_command)
+      output = execute_command!
+      return output
+    end
+
+    def setup_parking_lot
+      raise InitializationError if parking_lot_initialized?
+      parking_lot_capacity = @parsed_args[0]
+      @parking_lot = ParkingLot.new(parking_lot_capacity)
+      return "Created a parking lot with #{@parking_lot.total_capacity} slots"
+    end
+
+    def park
+      raise ParkingLotNotFoundError unless parking_lot_initialized?
+      car = @parsed_args[0]
+      ticket = @parking_lot.park!(car)
+      return "Allocated slot number: #{ticket.parked_slot.slot_number}"
+    end
+
+    def unpark
+      raise ParkingLotNotFoundError unless parking_lot_initialized?
+      ticket_id = @parsed_args[0]
+      @parking_lot.unpark!(ticket_id)
+      return "Slot number #{ticket_id} is free"
+    end
+
+    def status
+      raise ParkingLotNotFoundError unless parking_lot_initialized?
+      status_data = @parking_lot.status
+      return status_table_string(status_data)
+    end
+
+    def get_colour_reg_nos
+      raise ParkingLotNotFoundError unless parking_lot_initialized?
+      colour = @parsed_args[0]
+      registration_numbers = @parking_lot.get_registration_numbers_for_colour(colour)
+      return registration_numbers.join(', ')
+    end
+
+    def get_colour_slot_nos
+      raise ParkingLotNotFoundError unless parking_lot_initialized?
+      colour = @parsed_args[0]
+      slot_numbers = @parking_lot.get_slot_numbers_for_colour(colour)
+      return slot_numbers.join(', ')
+    end
+
+    def get_slot_nos
+      raise ParkingLotNotFoundError unless parking_lot_initialized?
+      car_registration_number = @parsed_args[0]
+      slot_number = @parking_lot.get_parked_slot_number!(car_registration_number)
+      return slot_number.to_s
+    end
+
+    private 
+
+    def parse_command!(raw_command)
+      @command_name, unparsed_args = get_command_name_and_args(raw_command)
+      @parsed_args = Command::Parser.new(@command_name).validate_and_parse!(unparsed_args)
+    end
+
+    def execute_command!
+      return self.public_send(COMMAND_METHOD_MAPPINGS[@command_name])
     end
 
     def parking_lot_initialized?
       !@parking_lot.nil? and @parking_lot.class == ParkingLot
     end
-
-    def process(command)
-      command = command.split
-      command_name = command[0]
-      command.shift
-      command_args = command
-      messg = nil
-
-      case command_name
-      when SETUP_LOT
-        Command::Parser.new(SETUP_LOT).validate_and_parse!(command_args)
-        parking_lot_capacity = command_args[0]
-        @parking_lot = ParkingLot.new(parking_lot_capacity)
-        messg = "Created a parking lot with #{@parking_lot.total_capacity} slots"
-      when PARK
-        Command::Parser.new(PARK).validate_and_parse!(command_args)
-        car = command_args[0]
-        ticket = @parking_lot.park!(car)
-        messg = "Allocated slot number: #{ticket.parked_slot.slot_number}"
-
-      when UNPARK
-        Command::Parser.new(UNPARK).validate_and_parse!(command_args)
-        ticket_id = command_args[0]
-        @parking_lot.unpark!(ticket_id)
-        messg = "Slot number #{ticket_id} is free"
-
-      when STATUS
-        Command::Parser.new(STATUS).validate_and_parse!(command_args)
-        status_data = @parking_lot.status
-        messg = status_table_string(status_data)
-
-      when GET_COLOUR_REG_NOS
-        Command::Parser.new(GET_COLOUR_REG_NOS).validate_and_parse!(command_args)
-        colour = command_args[0]
-        registration_numbers = @parking_lot.get_registration_numbers_for_colour(colour)
-        messg = registration_numbers.join(', ')
-
-      when GET_COLOUR_SLOT_NOS
-        Command::Parser.new(GET_COLOUR_SLOT_NOS).validate_and_parse!(command_args)
-        colour = command_args[0]
-        slot_numbers = @parking_lot.get_slot_numbers_for_colour(colour)
-        messg = slot_numbers.join(', ')
-
-      when GET_SLOT_NO
-        Command::Parser.new(GET_SLOT_NO).validate_and_parse!(command_args)
-        car_registration_number = command_args[0]
-        slot_number = @parking_lot.get_parked_slot_number!(car_registration_number)
-        messg = slot_number.to_s
-      else
-        raise Command::InvalidInputError unless VALID_PARKING_LOT_COMMANDS.include?(command_name)
-      end
-      return messg
+    
+    def get_command_name_and_args(raw_command)
+      raw_command = raw_command.split
+      command_name = raw_command[0]
+      raw_command.shift
+      command_args = raw_command
+      return [command_name, command_args]
     end
-
-    private 
 
     def status_table_string(data)
       tmp = "Slot No.    Registration No    Colour\n"

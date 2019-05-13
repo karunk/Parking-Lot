@@ -20,4 +20,14 @@ module Command
     EXIT
   ]
 
+  COMMAND_METHOD_MAPPINGS = {
+    PARK => 'park',
+    SETUP_LOT => 'setup_parking_lot',
+    UNPARK => 'unpark',
+    STATUS =>'status',
+    GET_COLOUR_REG_NOS => 'get_colour_reg_nos',
+    GET_COLOUR_SLOT_NOS =>'get_colour_slot_nos',
+    GET_SLOT_NO => 'get_slot_nos' 
+  }
+
 end
